@@ -1,0 +1,47 @@
+html, * {
+  font-family: monaco, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a, a:active, a:visited {
+  color: blue;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+input[type="text"] {
+  border: 2px solid #c3cbe2;
+  padding: 8px 10px;
+  width: 280px;
+  font-size: 16px;
+}
+
+button {
+  padding: 4px 12px;
+  border: 2px solid #222334;
+  background-color: #f5f5f5;
+  margin-top: .5em;
+  font-size: 14px;
+  margin-left: 1em;
+}
+
+button.button-disabled {
+  color: #aaa;
+}
+
+ul {
+  padding: 0;
+}
+
+ul li {
+  list-style-type: none;
+}
+

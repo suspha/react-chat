@@ -1,0 +1,36 @@
+.container {
+  padding: 1.5em;
+}
+
+.Chat-list {
+  margin-top: 2.1rem;
+}
+
+.Chat-message {
+  display: flex;
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.Chat-message img {
+  max-width: 100%;
+}
+
+.Chat-message-content {
+  flex-grow: 1;
+}
+
+.Chat-message-date {
+  color: #ccc;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.Chat-input input {
+  width: 100%;
+}
+
+.Chat-message-edit {
+  font-size: 11px;
+  margin-left: 4rem;
+}
