@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { store, observer } from '@/store.js'
+import { store, observer, autorun } from '@/store.js'
 import { router } from 'router-link'
 import './Chat.css'
+import util from '@/lib/util.js'
 
 // https://images.pexels.com/photos/34950/pexels-photo.jpg
 
@@ -13,6 +14,21 @@ import './Chat.css'
     }
     this.input = React.createRef()
     store.connect()
+
+    autorun(() => {
+      if(store.isConnected) {
+        this.focus()
+      }
+    })
+  }
+
+  focus = () => {
+    window.requestAnimationFrame(() => {
+      const input = this.input.current
+      if (input) {
+        input.focus()
+      }
+    })
   }
 
   handleSubmit = (event) => {
@@ -24,7 +40,6 @@ import './Chat.css'
         name: store.username,
         color: store.usercolor
       })
-
       store.socket.send(data)
       input.value = ''
     } else {
@@ -32,13 +47,8 @@ import './Chat.css'
     }
   }
 
-  formatDate = (date) => {
-    const dd = date.getDay()
-    const mm = date.getMonth()+1
-    const yy = date.getFullYear()
-    const hour = date.getHours()
-    const min = date.getMinutes()
-    return hour + ':' + min + ' ' + dd + '/' + mm + '/' + yy
+  componentDidMount() {
+    this.focus()
   }
 
   render () {
@@ -59,8 +69,7 @@ import './Chat.css'
                   <span style={{ color: m.color }}>{ m.name }: </span>
                    <span dangerouslySetInnerHTML={{ __html: m.text }}></span>
                 </div>
-                <div className="Chat-message-date">{ this.formatDate(m.date) }</div>
-                <span><i className="material-icons">mode_edit</i></span>
+                <div className="Chat-message-date">{ util.formatDate(m.date) }</div>
             </li>
           }) }
         </ul>

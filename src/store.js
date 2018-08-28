@@ -1,5 +1,6 @@
 import { observable } from 'mobx'
 import soundfile from '@/assets/pling.mp3'
+import util from '@/lib/util.js'
 
 const names = 'Susana,Peter,Vidar,Sean,Eva,Lars'.split(',')
 const name = names[Math.floor(Math.random() * names.length)];
@@ -12,20 +13,7 @@ class Store {
   @observable usercolor = color
   @observable isLoggedIn = true
   @observable playSound = true
-  @observable messages = [
-    // {
-    //   text: '<img src="https://images.pexels.com/photos/34950/pexels-photo.jpg"/>',
-    //   name: 'Susana',
-    //   color: 'red',
-    //   date: new Date()
-    // },
-    // {
-    //   text: 'Dette er en test nummer 2, Dette er en test nummer 2,Dette er en test nummer 2m, Dette er en test nummer 2,Dette er en test nummer 2',
-    //   name: 'Peter',
-    //   color: 'green',
-    //   date: new Date()
-    // }
-  ]
+  @observable messages = []
   @observable isConnected = false
 
   connect(){
@@ -42,14 +30,8 @@ class Store {
         const data = JSON.parse(e.data)
         data.date = new Date()
 
-        // Check if text matches image
-        const regex = /(https?:\/\/.+(jpg|png|gif|jpeg|eps|giff|bmp))/ig
-        const images = data.text.match(regex) || []
-        console.log(images)
-        for (const i of images) {
-          data.text = data.text.replace(i, `<img src='${i}'/>`)
-        }
-
+        util.convertImages(data)
+        util.emoji(data)
         this.messages.unshift(data)
 
         // Play sound
@@ -65,6 +47,6 @@ class Store {
 // Exports
 export const store = new Store()
 export default store
-export { observable, computed, action } from 'mobx'
+export { observable, computed, action, autorun } from 'mobx'
 export { observer } from 'mobx-react'
 

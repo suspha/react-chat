@@ -25,9 +25,9 @@ import store from '@/store.js'
       <React.Fragment>
         <Link to="/chat">Chat</Link>
         <div className="Navigation-login-status">
-        <span>
-          <input onChange={ this.handleCheck } type="checkbox" checked={ store.playSound }></input><span>Sound</span>
-        </span>
+        <label>
+          <input onChange={ this.handleCheck } type="checkbox" checked={ store.playSound }></input> 🔔
+        </label>
           <span className="userName" style={{color: store.usercolor}}>{ store.isLoggedIn ? `( ${store.username} )` : '' }</span>
           <a href="/logout" className="Navigation-logout" onClick={ this.handleClick }>Logout</a>
         </div>
