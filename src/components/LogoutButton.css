@@ -1,0 +1,28 @@
+.LogoutButton-notification {
+  color: red;
+  margin-left: 2px;
+  border-radius: 50%;
+  /*border-radius: 5px;*/
+  width: 24px;
+  height: 24px;
+  background-color: red;
+  text-align: center;
+  margin-left: 5px;
+  padding: 2px 6px;
+  color: #fff;
+  font-size: 12px;
+  padding-top: 2px;
+}
+
+.LogoutButton-notification.gray {
+  background-color: #cdcdcd;
+}
+
+.LogoutButton-userName{
+  padding-left: 10px;
+}
+
+
+a.LogoutButton-logout{
+  padding-right: 1em;
+}

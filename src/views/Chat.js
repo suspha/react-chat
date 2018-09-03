@@ -15,6 +15,8 @@ import util from '@/lib/util.js'
     this.input = React.createRef()
     store.connect()
 
+    store.notifications = 0
+
     autorun(() => {
       if(store.isConnected) {
         this.focus()

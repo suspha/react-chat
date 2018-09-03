@@ -15,20 +15,25 @@ class Store {
   @observable playSound = true
   @observable messages = []
   @observable isConnected = false
+  @observable notifications = 0
 
-  connect(){
+  connect () {
     if(!this.isConnected) {
       this.socket = new WebSocket ('ws://localhost:5000')
       this.socket.onopen = (e) => {
         console.log('Websocket is open')
         setTimeout(() => {
           this.isConnected = true
-        }, 1000)
+        }, 100)
       }
       this.socket.onmessage = (e) => {
         console.log("Websocket message receieved:", e.data)
         const data = JSON.parse(e.data)
         data.date = new Date()
+
+        if (window.location.pathname !== '/chat'){
+          this.notifications++
+        }
 
         util.convertImages(data)
         util.emoji(data)
@@ -37,7 +42,10 @@ class Store {
         // Play sound
         if(this.playSound) {
           let sound = new Audio(soundfile)
-          sound.play()
+          sound.autoplay = true
+          if (!util.isSafari()) {
+            sound.play()
+          }
         }
       }
     }

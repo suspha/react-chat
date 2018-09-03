@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import { Link, router } from 'router-link'
 import store from '@/store.js'
+import util from '@/lib/util.js'
+import './LogoutButton.css'
 
 @observer class LogoutButton extends Component {
 
@@ -21,14 +23,22 @@ import store from '@/store.js'
   }
 
   render() {
+    let klass = 'LogoutButton-notification'
+    if (store.notifications === 0) {
+      klass += ' gray'
+    }
+
     return (
       <React.Fragment>
         <Link to="/chat">Chat</Link>
         <div className="Navigation-login-status">
-        <label>
-          <input onChange={ this.handleCheck } type="checkbox" checked={ store.playSound }></input> 🔔
-        </label>
-          <span className="userName" style={{color: store.usercolor}}>{ store.isLoggedIn ? `( ${store.username} )` : '' }</span>
+          <label style={{ display: util.isSafari() ? 'none' : '' }}>
+            <input onChange={ this.handleCheck } type="checkbox" checked={ store.playSound }></input> 🔔
+          </label>
+          <span className="LogoutButton-userName" style={{color: store.usercolor}}>
+            { store.isLoggedIn ? `( ${store.username} )` : '' }
+          </span>
+          <span className={ klass }>{store.notifications}</span>
           <a href="/logout" className="Navigation-logout" onClick={ this.handleClick }>Logout</a>
         </div>
       </React.Fragment>

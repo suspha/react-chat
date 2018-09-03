@@ -5,7 +5,11 @@ util.formatDate = (date) => {
   const mm = date.getMonth()+1
   const yy = date.getFullYear()
   const hour = date.getHours()
-  const min = date.getMinutes()
+  let min = date.getMinutes()
+  // Add 0 when min is less than 2 digits
+  if (String(min).length < 2) {
+    min = '0' + min
+  }
   return hour + ':' + min + ' ' + dd + '/' + mm + '/' + yy
 }
 
@@ -24,11 +28,22 @@ util.emoji = (data) => {
     ':(': '😞',
     ';)': '😉',
     '<3': '❤️',
+    '</3': '💔',
     ':/': '😕',
+    '/^' : '👍',
+    '^/' : '👎',
+    ':|': '😐',
+    ':0': '😱',
+    ':-0': '😱'
   }
+
   for(const e in emojis) {
     data.text = data.text.replace(e, emojis[e])
   }
+}
+
+util.isSafari = () => {
+  return !!window.safari
 }
 
 export default util
